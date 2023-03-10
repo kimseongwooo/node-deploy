@@ -9,7 +9,7 @@ const passport = require('passport');
 const helmet = require('helmet');
 const hpp = require('hpp');
 const redis = require('redis');
-const RedisStore = require('connect-redis')(session);
+
 
 dotenv.config();
 const redisClient = redis.createClient({
@@ -67,7 +67,7 @@ const sessionOption = {
     httpOnly: true,
     secure: false,
   },
-  store: new RedisStore({ client: redisClient }),
+  store: redisClient,
 };
 if (process.env.NODE_ENV === 'production') {
   sessionOption.proxy = true;
